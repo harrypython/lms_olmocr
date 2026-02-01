@@ -15,6 +15,7 @@ import re
 import asyncio
 import sys
 import os
+import logging
 from pathlib import Path
 from openai import OpenAI
 from pypdf import PdfReader
@@ -50,6 +51,9 @@ async def convert_pdf_to_markdown(pdf_path, output_file):
             target_longest_image_dim=1024, 
             model_name='allenai/olmocr-2-7b@q4_k_m'
         )
+        
+        # ignoring INFO and DEBUG messages
+        logging.getLogger("httpx").setLevel(logging.WARNING)
         
         # Send request to LM Studio
         response = client.chat.completions.create(**query)

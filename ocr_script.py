@@ -42,14 +42,14 @@ async def convert_pdf_to_markdown(pdf_path, output_file):
     print(f"Processing {num_pages} pages...")
 
     # Process each page in the PDF
-    for page_num in tqdm(range(1, num_pages + 1)):
+    for page_num in tqdm(range(1, num_pages + 1), unit="pages"):
         
         # Build query for the current page
         query = await build_page_query(
             pdf_path, 
             page=page_num, 
             target_longest_image_dim=1024, 
-            model_name='allenai/olmocr-2-7b@q4_k_m'
+            model_name='allenai/olmocr-2-7b'
         )
         
         # ignoring INFO and DEBUG messages
